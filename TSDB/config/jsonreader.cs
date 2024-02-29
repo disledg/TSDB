@@ -29,7 +29,7 @@ namespace TSDB
                 this.prefix = data.prefix;
                 List<TicketItem> items = new List<TicketItem>();
                 foreach (var item in data.items) {
-                    this.items.Append(new TicketItem
+                    this.items.Add(new TicketItem
                     {
                         name = item.name,
                         id = item.id,

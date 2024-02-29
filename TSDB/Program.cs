@@ -182,26 +182,49 @@ namespace TSDB
                     break;
                 case "modalButton":
 
-                    var options1 = new List<DiscordSelectComponentOption>();
-
-                    foreach (var item in JsonReader.items) {
-                        options1.Add(new DiscordSelectComponentOption(
+                    var options_items = new List<DiscordSelectComponentOption>();
+                    foreach (var item in JsonReader.items)
+                    {
+                        options_items.Add(new DiscordSelectComponentOption(
                                 item.name,
                                 item.id,
                                 item.description,
                                 isDefault: false,
-                                emoji: new DiscordComponentEmoji(item.emoji)
-                            )
-                        );
+                                emoji: new DiscordComponentEmoji(item.emoji)));
                     }
+                    var dropdown_items = new DiscordSelectComponent("items", "Товар", options_items, false, 1, 1);
 
-                    var dropdown_items = new DiscordSelectComponent("items", "123", options1, false, 1, 1);
+                    var options_payments = new List<DiscordSelectComponentOption>();
+                    foreach (var payment in JsonReader.items)
+                    {
+                        options_payments.Add(new DiscordSelectComponentOption(
+                                payment.name,
+                                payment.id,
+                                payment.description,
+                                isDefault: false,
+                                emoji: new DiscordComponentEmoji(payment.emoji)));
+                    }
+                    var dropdown_payments = new DiscordSelectComponent("payment", "Способ оплаты", options_payments, false, 1, 1);
+
+                    var options_joins = new List<DiscordSelectComponentOption>();
+                    foreach (var join in JsonReader.items)
+                    {
+                        options_joins.Add(new DiscordSelectComponentOption(
+                                join.name,
+                                join.id,
+                                join.description,
+                                isDefault: false,
+                                emoji: new DiscordComponentEmoji(join.emoji)));
+                    }
+                    var dropdown_joins = new DiscordSelectComponent("join", "Вход в аккаунт", options_joins, false, 1, 1);
 
 
                     await args.Interaction.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource,
                         new DiscordInteractionResponseBuilder()
                         .WithContent("123")
                         .AddComponents(dropdown_items)
+                        .AddComponents(dropdown_payments)
+                        .AddComponents(dropdown_join)
                         .AsEphemeral(true));
 
                     break;

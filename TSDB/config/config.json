@@ -8,5 +8,21 @@
       "description": "desc1",
       "emoji": 1210651615959453706
     }
+  ],
+  "payments": [
+    {
+      "name": "tincock",
+      "id": "tincock1",
+      "description": "hui1",
+      "emoji": 1210651615959453706
+    }
+  ],
+  "joins": [
+    {
+      "name": "qr",
+      "id": "qr1",
+      "description": "qr213123  1231",
+      "emoji": 1210651615959453706
+    }
   ]
 }

@@ -189,7 +189,12 @@ namespace TSDB
                         .AddComponents(new TextInputComponent("Выберите способ выполнения заказа", "loginmethod", "Вход по QR-code... Вход по логину и паролю...", null, true, TextInputStyle.Short));
                     await args.Interaction.CreateResponseAsync(InteractionResponseType.Modal, modal);*/
 
-                    Console.WriteLine(JsonReader.items);
+                    
+
+                    foreach (var item in JsonReader.items)
+                    {
+                        Console.WriteLine(item);
+                    }
 
                     var options = new List<DiscordSelectComponentOption>();
                     foreach (TicketItem item in JsonReader.items)

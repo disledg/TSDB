@@ -179,7 +179,6 @@ namespace TSDB
                 switch (args.Interaction.Data.CustomId)
                 {
                     case "ticket_cancel":
-                        // Обновляем ephemeral сообщение
                         await args.Interaction.CreateResponseAsync(InteractionResponseType.UpdateMessage);
                         break;
 

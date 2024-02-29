@@ -215,17 +215,19 @@ namespace TSDB
                         ImageUrl = "https://s2.mmommorpg.com/media/wide/scaled/genshin-wide.jpg.340x170_q75_crop-smart.jpg",
                         Color = DiscordColor.DarkButNotBlack,
                     };*/
-                    var messageBuilder = new DiscordMessageBuilder();
-                    messageBuilder.AddComponents(dropdown_items);
 
 
-                    await args.Interaction.CreateResponseAsync(
+                    /*await args.Interaction.CreateResponseAsync(
                         InteractionResponseType.ChannelMessageWithSource,
                         new DiscordInteractionResponseBuilder()
                             .WithContent("Ты нажал на кнопку!")
                             .AsEphemeral(true)
                             .AddComponents(dropdown_items)
-                    );
+                    );*/
+
+                    await args.Interaction.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource,
+                        new DiscordInteractionResponseBuilder()
+                        .WithContent("123"));
 
                     break;
                 

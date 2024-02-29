@@ -14,6 +14,11 @@ namespace TSDB
         public string token { get; set; }
         public string prefix { get; set; }  
         public List<TicketItem> items { get; set; }
+        public jsonreader()
+        {
+            this.items = new List<TicketItem>();
+        }
+
         public async Task ReadJson()
         {
             using (StreamReader sr = new StreamReader("config.json")) 

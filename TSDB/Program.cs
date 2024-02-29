@@ -146,27 +146,6 @@ namespace TSDB
         {
             if (args.Interaction.Data.ComponentType == ComponentType.StringSelect)
             {
-                /*var options = args.Values;
-                foreach (var option in options)
-                {
-                    switch (option)
-                    {
-                        case "option1":
-                            await args.Interaction.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder()
-                .WithContent($"Выбрана опция: {args.Values.ToString()}")
-                .AsEphemeral(true)); // Ответ будет виден только автору
-                            break;
-
-                        case "option2":
-                            await args.Interaction.CreateResponseAsync(InteractionResponseType.UpdateMessage, new DiscordInteractionResponseBuilder().WithContent($"{args.User.Username} has selected Option 2"));
-                            break;
-
-                        case "option3":
-                            await args.Interaction.CreateResponseAsync(InteractionResponseType.UpdateMessage, new DiscordInteractionResponseBuilder().WithContent($"{args.User.Username} has selected Option 3"));
-                            break;
-                        
-                    }
-                }*/
                 switch (args.Id)
                 {
                     case "items":
@@ -192,6 +171,15 @@ namespace TSDB
                         );
                         await Task.Delay(1000);
                         await args.Interaction.DeleteOriginalResponseAsync();
+                        break;
+                }
+            }
+            if (args.Interaction.Data.ComponentType == ComponentType.Button)
+            {
+                switch (args.Id)
+                {
+                    case "ticket_cancel":
+                        await args.Interaction.DeleteFollowupMessageAsync(args.Message.Id);
                         break;
                 }
             }

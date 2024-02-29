@@ -197,19 +197,20 @@ namespace TSDB
                     }
 
                     var options = new List<DiscordSelectComponentOption>();
-                    foreach (TicketItem item in JsonReader.items)
+                    /*foreach (TicketItem item in JsonReader.items)
                     {
                         options.Append(new DiscordSelectComponentOption(
                             item.name,
                             item.id,
                             item.description));
+                    }*/
 
-                        
-                    }
+                    options.Append(new DiscordSelectComponentOption(
+                            "name",
+                            "id",
+                            "desc"));
 
-                    
-                    
-                    var dropdown_items = new DiscordSelectComponent("items", null, options, false, 1, 1);
+                    var dropdown_items = new DiscordSelectComponent("items", "123", options, false, 1, 1);
                     /*var message = new DiscordEmbedBuilder
                     {
                         ImageUrl = "https://s2.mmommorpg.com/media/wide/scaled/genshin-wide.jpg.340x170_q75_crop-smart.jpg",
@@ -228,6 +229,7 @@ namespace TSDB
                     await args.Interaction.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource,
                         new DiscordInteractionResponseBuilder()
                         .WithContent("123")
+                        .AddComponents(dropdown_items)
                         .AsEphemeral(true));
 
                     break;

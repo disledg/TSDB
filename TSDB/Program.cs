@@ -176,7 +176,7 @@ namespace TSDB
             }
             if (args.Interaction.Data.ComponentType == ComponentType.Button)
             {
-                switch (args.Id)
+                switch (args.Interaction.Data.CustomId)
                 {
                     case "ticket_cancel":
                         await args.Interaction.DeleteFollowupMessageAsync(args.Message.Id);

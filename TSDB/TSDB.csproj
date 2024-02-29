@@ -150,6 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="config\config.json" />
     <None Include="packages.config" />
     <None Include="Tickets.json" />
   </ItemGroup>

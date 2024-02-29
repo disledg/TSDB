@@ -28,7 +28,7 @@ namespace TSDB
                     item1.name = item.name;
                     item1.id = item.id;
                     item1.description = item.description;
-                    this.items.Append(item1);
+                    this.items.Add(item1);
                 }
             }
         }

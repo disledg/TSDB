@@ -185,6 +185,7 @@ namespace TSDB
                     var options1 = new List<DiscordSelectComponentOption>();
 
                     foreach (var item in JsonReader.items) {
+                        Console.WriteLine(item.name);
                         options1.Add(new DiscordSelectComponentOption(
                                 item.name,
                                 item.id,

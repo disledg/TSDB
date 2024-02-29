@@ -28,7 +28,7 @@ namespace TSDB
                 this.token = data.token;
                 this.prefix = data.prefix;
                 List<TicketItem> items = new List<TicketItem>();
-                foreach (JSONStructure item in data.items) {
+                foreach (var item in data.items) {
                     this.items.Append(new TicketItem
                     {
                         name = item.name,

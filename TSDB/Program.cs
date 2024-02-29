@@ -179,6 +179,7 @@ namespace TSDB
                 switch (args.Interaction.Data.CustomId)
                 {
                     case "ticket_cancel":
+                        Console.WriteLine("123123");
                         await args.Interaction.DeleteOriginalResponseAsync();
                         break;
                 }

@@ -224,7 +224,7 @@ namespace TSDB
                         .WithContent("123")
                         .AddComponents(dropdown_items)
                         .AddComponents(dropdown_payments)
-                        .AddComponents(dropdown_join)
+                        .AddComponents(dropdown_joins)
                         .AsEphemeral(true));
 
                     break;

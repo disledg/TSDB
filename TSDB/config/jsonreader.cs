@@ -24,11 +24,12 @@ namespace TSDB
                 this.prefix = data.prefix;
                 List<TicketItem> items = new List<TicketItem>();
                 foreach (JSONStructure item in data.items) {
-                    TicketItem item1 = new TicketItem();
-                    item1.name = item.name;
-                    item1.id = item.id;
-                    item1.description = item.description;
-                    this.items.Add(item1);
+                    this.items.Append(new TicketItem
+                    {
+                        name = item.name,
+                        id = item.id,
+                        description = item.description
+                    });
                 }
             }
         }

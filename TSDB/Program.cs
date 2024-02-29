@@ -181,7 +181,7 @@ namespace TSDB
                     case "ticket_cancel":
                         await args.Interaction.CreateResponseAsync(
                             InteractionResponseType.UpdateMessage,
-                            new DiscordInteractionResponseBuilder().WithContent("Сообщение будет удалено")
+                            new DiscordInteractionResponseBuilder().WithContent("Удачи!")
                         );
                         await args.Interaction.DeleteOriginalResponseAsync();
                         break;

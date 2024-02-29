@@ -181,27 +181,13 @@ namespace TSDB
                     
                     break;
                 case "modalButton":
-                    /*var modal = new DiscordInteractionResponseBuilder()
-                        .WithTitle("Test Modal")
-                        .WithCustomId("testModal")
-                        .AddComponents(new TextInputComponent("Укажите интересующий товар из ассортимента", "productname", "Nitro Full 1 месяц...", null, true, TextInputStyle.Short))
-                        .AddComponents(new TextInputComponent("Укажите способ оплаты", "paymentmethod", "Сбербанк... Тинькофф...", null, true, TextInputStyle.Short))
-                        .AddComponents(new TextInputComponent("Выберите способ выполнения заказа", "loginmethod", "Вход по QR-code... Вход по логину и паролю...", null, true, TextInputStyle.Short));
-                    await args.Interaction.CreateResponseAsync(InteractionResponseType.Modal, modal);*/
 
                     var options = new List<DiscordSelectComponentOption>();
-                    /*foreach (TicketItem item in JsonReader.items)
-                    {
-                        options.Append(new DiscordSelectComponentOption(
-                            item.name,
-                            item.id,
-                            item.description));
-                    }*/
 
                     options.Append(new DiscordSelectComponentOption(
-                            "name",
-                            "id",
-                            "desc"));
+                        "name",
+                        "id",
+                        "desc"));
 
                     var dropdown_items = new DiscordSelectComponent("items", "123", options, false, 1, 1);
 

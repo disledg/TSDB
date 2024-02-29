@@ -44,7 +44,15 @@ namespace TSDB.Commands
                 new DiscordSelectComponentOption(
                     "Имя кнопки с эмоджи (Default)",
                     "label_with_desc_emoji_default",
-                    "Вот оно описание")
+                    "Вот оно описание"),
+                new DiscordSelectComponentOption(
+                    "Имя кнопки с эм123оджи (Default)",
+                    "label_with_desc_emoji1_default",
+                    "Вот оно описан312312ие"),
+                new DiscordSelectComponentOption(
+                    "Имя кнопки с 123123123`123эмоджи (Default)",
+                    "label_with_desc_emoji_123default",
+                    "Вот оно описани12312312е")
             };
                 var dropdown = new DiscordSelectComponent("dropdown", null, options, false, 1, 1);
                 var dropdown1 = new DiscordSelectComponent("dropdown1", null, options, false, 1, 1);

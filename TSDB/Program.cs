@@ -195,7 +195,7 @@ namespace TSDB
                     var dropdown_items = new DiscordSelectComponent("items", "Товар", options_items, false, 1, 1);
 
                     var options_payments = new List<DiscordSelectComponentOption>();
-                    foreach (var payment in JsonReader.items)
+                    foreach (var payment in JsonReader.payments)
                     {
                         options_payments.Add(new DiscordSelectComponentOption(
                                 payment.name,
@@ -207,7 +207,7 @@ namespace TSDB
                     var dropdown_payments = new DiscordSelectComponent("payment", "Способ оплаты", options_payments, false, 1, 1);
 
                     var options_joins = new List<DiscordSelectComponentOption>();
-                    foreach (var join in JsonReader.items)
+                    foreach (var join in JsonReader.joins)
                     {
                         options_joins.Add(new DiscordSelectComponentOption(
                                 join.name,

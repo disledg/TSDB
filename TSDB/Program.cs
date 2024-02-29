@@ -182,26 +182,21 @@ namespace TSDB
                     break;
                 case "modalButton":
 
-                    var options = new List<DiscordSelectComponentOption>();
-
-                    options.Append(new DiscordSelectComponentOption(
+                    var options1 = new List<DiscordSelectComponentOption>()
+                    {
+                        new DiscordSelectComponentOption(
                     "Имя кнопки с эмоджи",
                     "label_with_desc_emoji",
-                    "Вот оно описание"));
-
-                    var dropdown_items = new DiscordSelectComponent("items", "123", options, false, 1, 1);
-
-                    var message = new DiscordEmbedBuilder
-                    {
-                        ImageUrl = "https://s2.mmommorpg.com/media/wide/scaled/genshin-wide.jpg.340x170_q75_crop-smart.jpg",
-                        Color = DiscordColor.DarkButNotBlack,
+                    "Вот оно описание")
                     };
+
+
+                    var dropdown_items = new DiscordSelectComponent("items", "123", options1, false, 1, 1);
 
 
                     await args.Interaction.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource,
                         new DiscordInteractionResponseBuilder()
                         .WithContent("123")
-                        .AddEmbed(message)
                         .AddComponents(dropdown_items)
                         .AsEphemeral(true));
 

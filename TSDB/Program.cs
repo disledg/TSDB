@@ -14,7 +14,6 @@ using TSDB.Commands;
 using TSDB.Commands.Slash;
 using System.Security.Cryptography;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 
 namespace TSDB
 {
@@ -185,17 +184,15 @@ namespace TSDB
 
                     var options1 = new List<DiscordSelectComponentOption>();
 
-                    for (int i  = 0; i < JsonReader.items.Count; i++)
-                    {
-                        Console.WriteLine(JsonReader.items[i].name);
+                    foreach (var item in JsonReader.items) {
+                        Console.WriteLine(item.name);
                         options1.Add(new DiscordSelectComponentOption(
-                                JsonReader.items[i].name,
-                                JsonReader.items[i].id,
-                                JsonReader.items[i].description
+                                item.name,
+                                item.id,
+                                item.description
                             )
                         );
                     }
-
 
                     var dropdown_items = new DiscordSelectComponent("items", "123", options1, false, 1, 1);
 

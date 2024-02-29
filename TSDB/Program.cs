@@ -167,7 +167,7 @@ namespace TSDB
                         
                     }
                 }*/
-                switch (args.Interaction.Id)
+                switch (args.Id)
                 {
                     case "items":
                         await args.Interaction.CreateResponseAsync(
@@ -231,7 +231,7 @@ namespace TSDB
                                 isDefault: false,
                                 emoji: new DiscordComponentEmoji(payment.emoji)));
                     }
-                    var dropdown_payments = new DiscordSelectComponent("payment", "Способ оплаты", options_payments, false, 1, 1);
+                    var dropdown_payments = new DiscordSelectComponent("payments", "Способ оплаты", options_payments, false, 1, 1);
 
                     var options_joins = new List<DiscordSelectComponentOption>();
                     foreach (var join in JsonReader.joins)
@@ -243,7 +243,7 @@ namespace TSDB
                                 isDefault: false,
                                 emoji: new DiscordComponentEmoji(join.emoji)));
                     }
-                    var dropdown_joins = new DiscordSelectComponent("join", "Вход в аккаунт", options_joins, false, 1, 1);
+                    var dropdown_joins = new DiscordSelectComponent("joins", "Вход в аккаунт", options_joins, false, 1, 1);
 
                     var btn_confirm = new DiscordButtonComponent(ButtonStyle.Primary, "ticket_create", "Подтвердить");
                     var btn_cancel = new DiscordButtonComponent(ButtonStyle.Danger, "ticket_cancel", "Отменить");

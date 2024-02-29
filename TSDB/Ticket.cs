@@ -13,7 +13,7 @@ namespace TSDB
         public string payMethod { get; set; }
         public string loginMethod { get; set; }
         public int ticketNum { get; set; }
-        public ulong ticketId { get; set; }
+        public string ticketId { get; set; }
         public bool isClosed { get; set; }
         public string reason { get; set; }
     }

@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using TSDB.Commands;
 using TSDB.Commands.Slash;
+using System.Security.Cryptography;
 
 namespace TSDB
 {
@@ -77,11 +78,16 @@ namespace TSDB
                 
                 var TicketEngine = new TicketEngine();
 
-                ulong minvalue = 1000000000000000000;
-                ulong maxvalue = 9999999999999999999;
+                int minvalue = 10000;
+                int maxvalue = 99999;
 
-                ulong randomNumber = (ulong)random.Next((int)(minvalue >> 32), int.MaxValue) << 32 | (ulong)random.Next();
-                ulong result  = randomNumber %(maxvalue - minvalue + 1) + minvalue;
+                int randomNumber = random.Next(minvalue, maxvalue);
+                string before_hash = e.Interaction.User.Username + e.Interaction.User.AvatarHash + randomNumber.ToString();
+
+                MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
+                byte[] bytes = Encoding.UTF8.GetBytes(before_hash);
+                byte[] hash = md5.ComputeHash(bytes);
+                string ticket_id = Convert.ToBase64String(hash);
 
                 var ticket1 = new Ticket()
                 {
@@ -90,7 +96,7 @@ namespace TSDB
                     payMethod = values.Values.ToArray()[1],
                     loginMethod = e.Values.Values.ToArray()[2],
                     ticketNum = 0,
-                    ticketId = result,
+                    ticketId = ticket_id,
                 };
 
                 TicketEngine.StoreTicket(ticket1);

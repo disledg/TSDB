@@ -189,7 +189,7 @@ namespace TSDB
                         break;
                     case "ticket_create":
                         bool full = true;
-                        foreach (var component in args.Interaction.Data.Components)
+                        foreach (...) // ВОТ ТУТ
                         {
                             if (component.CustomId == "items" || component.CustomId == "payments" || component.CustomId == "joins")
                             {

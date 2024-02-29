@@ -167,7 +167,7 @@ namespace TSDB
                         
                     }
                 }*/
-                switch (args.Id)
+                switch (args.Interaction.Id)
                 {
                     case "items":
                         await args.Interaction.CreateResponseAsync(

@@ -185,9 +185,9 @@ namespace TSDB
                     var options = new List<DiscordSelectComponentOption>();
 
                     options.Append(new DiscordSelectComponentOption(
-                        "name",
-                        "id",
-                        "desc"));
+                    "Имя кнопки с эмоджи",
+                    "label_with_desc_emoji",
+                    "Вот оно описание"));
 
                     var dropdown_items = new DiscordSelectComponent("items", "123", options, false, 1, 1);
 

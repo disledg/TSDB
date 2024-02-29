@@ -5,7 +5,8 @@
     {
       "name": "name1",
       "id": "id1",
-      "description": "desc1"
+      "description": "desc1",
+      "emoji": 1210651615959453706
     }
   ]
 }

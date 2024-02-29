@@ -33,7 +33,8 @@ namespace TSDB
                     {
                         name = item.name,
                         id = item.id,
-                        description = item.description
+                        description = item.description,
+                        emoji = item.emoji,
                     });
                 }
             }
@@ -46,6 +47,7 @@ namespace TSDB
         public string name { get; set; }
         public string id { get; set; }
         public string description { get; set; }
+        public ulong emoji { get; set; }
         public List<JSONStructure> items { get; set; }
     }
 }

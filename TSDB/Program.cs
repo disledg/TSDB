@@ -218,6 +218,9 @@ namespace TSDB
                     }
                     var dropdown_joins = new DiscordSelectComponent("join", "Вход в аккаунт", options_joins, false, 1, 1);
 
+                    var btn_confirm = new DiscordButtonComponent(ButtonStyle.Primary, "ticket_create", "Подтвердить");
+                    var btn_cancel = new DiscordButtonComponent(ButtonStyle.Danger, "ticket_cancel", "Отменить");
+
 
                     await args.Interaction.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource,
                         new DiscordInteractionResponseBuilder()
@@ -225,6 +228,7 @@ namespace TSDB
                         .AddComponents(dropdown_items)
                         .AddComponents(dropdown_payments)
                         .AddComponents(dropdown_joins)
+                        .AddComponents(btn_confirm, btn_cancel)
                         .AsEphemeral(true));
 
                     break;

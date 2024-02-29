@@ -150,12 +150,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="config\config.json" />
     <None Include="packages.config" />
     <None Include="Tickets.json" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="res\logo_menu.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="TicketItem.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

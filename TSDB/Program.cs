@@ -6,18 +6,14 @@ using DSharpPlus.Interactivity;
 using DSharpPlus.Interactivity.Extensions;
 using DSharpPlus.SlashCommands;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 using TSDB.Commands;
 using TSDB.Commands.Slash;
 using System.Security.Cryptography;
+using System.Collections.Generic;
 
 namespace TSDB
 {
@@ -25,21 +21,20 @@ namespace TSDB
     {
         private static DiscordClient Client { get; set; }
         private static CommandsNextExtension Commands {  get; set; }    
+        private static jsonreader JsonReader { get; set; }
         static async Task Main(string[] args)
         {
-            var jsonreader = new jsonreader();
-            await jsonreader.ReadJson();
+            JsonReader = new jsonreader();
+            await JsonReader.ReadJson();
 
             var discordConfig = new DiscordConfiguration()
             {
                 Intents = DiscordIntents.All,
-                Token = jsonreader.token,
+                Token = JsonReader.token,
                 TokenType = TokenType.Bot,
                 AutoReconnect = true
             };
-
             
-
             Client = new DiscordClient(discordConfig);
             Client.UseInteractivity(new InteractivityConfiguration()
             {
@@ -52,7 +47,7 @@ namespace TSDB
 
             var commandsConfig = new CommandsNextConfiguration()
             {
-                StringPrefixes = new string[] {jsonreader.prefix},
+                StringPrefixes = new string[] { JsonReader.prefix },
                 EnableMentionPrefix = true,
                 EnableDms = true,
                 EnableDefaultHelp = false,
@@ -179,19 +174,6 @@ namespace TSDB
                     var channelTicket = args.Interaction.Channel;
                     var channelInfo = args.Guild.GetChannel(1210941405640400946);
                     var messages = channelTicket.GetMessagesAsync().Result;
-                    
-
-                    foreach (var message in messages)
-                    {
-                        string pattern = @"Ticket\s+ID:\s+(\d+)";
-                        Regex regex = new Regex(pattern);
-                        var contentFromMessage = message.Content;
-                        Match match = regex.Match(contentFromMessage);
-                        if (match.Success)
-                        {
-
-                        }
-                    }
 
                     await channelTicket.DeleteAsync();
                     break;
@@ -199,13 +181,41 @@ namespace TSDB
                     
                     break;
                 case "modalButton":
-                    var modal = new DiscordInteractionResponseBuilder()
+                    /*var modal = new DiscordInteractionResponseBuilder()
                         .WithTitle("Test Modal")
                         .WithCustomId("testModal")
                         .AddComponents(new TextInputComponent("Укажите интересующий товар из ассортимента", "productname", "Nitro Full 1 месяц...", null, true, TextInputStyle.Short))
                         .AddComponents(new TextInputComponent("Укажите способ оплаты", "paymentmethod", "Сбербанк... Тинькофф...", null, true, TextInputStyle.Short))
                         .AddComponents(new TextInputComponent("Выберите способ выполнения заказа", "loginmethod", "Вход по QR-code... Вход по логину и паролю...", null, true, TextInputStyle.Short));
-                    await args.Interaction.CreateResponseAsync(InteractionResponseType.Modal, modal);
+                    await args.Interaction.CreateResponseAsync(InteractionResponseType.Modal, modal);*/
+
+                    var options = new List<DiscordSelectComponentOption>();
+                    foreach (TicketItem item in JsonReader.items)
+                    {
+                        options.Append(new DiscordSelectComponentOption(
+                            item.name,
+                            item.id,
+                            item.description));
+                    }
+                    
+                    var dropdown_items = new DiscordSelectComponent("items", null, options, false, 1, 1);
+                    /*var message = new DiscordEmbedBuilder
+                    {
+                        ImageUrl = "https://s2.mmommorpg.com/media/wide/scaled/genshin-wide.jpg.340x170_q75_crop-smart.jpg",
+                        Color = DiscordColor.DarkButNotBlack,
+                    };*/
+                    var messageBuilder = new DiscordMessageBuilder();
+                    messageBuilder.AddComponents(dropdown_items);
+
+
+                    await args.Interaction.CreateResponseAsync(
+                        InteractionResponseType.ChannelMessageWithSource,
+                        new DiscordInteractionResponseBuilder()
+                            .WithContent("Ты нажал на кнопку!")
+                            .AsEphemeral(true)
+                            .AddComponents(dropdown_items)
+                    );
+
                     break;
                 
 

@@ -11,8 +11,9 @@ namespace TSDB
 {
     internal class jsonreader
     {
-        public string token {  get; set; }
+        public string token { get; set; }
         public string prefix { get; set; }  
+        public List<TicketItem> items { get; set; }
         public async Task ReadJson()
         {
             using (StreamReader sr = new StreamReader("config.json")) 
@@ -21,6 +22,14 @@ namespace TSDB
                 JSONStructure data = JsonConvert.DeserializeObject<JSONStructure>(json);
                 this.token = data.token;
                 this.prefix = data.prefix;
+                List<TicketItem> items = new List<TicketItem>();
+                foreach (JSONStructure item in data.items) {
+                    TicketItem item1 = new TicketItem();
+                    item1.name = item.name;
+                    item1.id = item.id;
+                    item1.description = item.description;
+                    this.items.Append(item1);
+                }
             }
         }
     }
@@ -28,5 +37,9 @@ namespace TSDB
     {
         public string token { get; set; }
         public string prefix { get; set; }
+        public string name { get; set; }
+        public string id { get; set; }
+        public string description { get; set; }
+        public List<JSONStructure> items { get; set; }
     }
 }

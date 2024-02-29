@@ -189,13 +189,6 @@ namespace TSDB
                         .AddComponents(new TextInputComponent("Выберите способ выполнения заказа", "loginmethod", "Вход по QR-code... Вход по логину и паролю...", null, true, TextInputStyle.Short));
                     await args.Interaction.CreateResponseAsync(InteractionResponseType.Modal, modal);*/
 
-                    
-
-                    foreach (var item in JsonReader.items)
-                    {
-                        Console.WriteLine(item);
-                    }
-
                     var options = new List<DiscordSelectComponentOption>();
                     /*foreach (TicketItem item in JsonReader.items)
                     {
@@ -211,24 +204,18 @@ namespace TSDB
                             "desc"));
 
                     var dropdown_items = new DiscordSelectComponent("items", "123", options, false, 1, 1);
-                    /*var message = new DiscordEmbedBuilder
+
+                    var message = new DiscordEmbedBuilder
                     {
                         ImageUrl = "https://s2.mmommorpg.com/media/wide/scaled/genshin-wide.jpg.340x170_q75_crop-smart.jpg",
                         Color = DiscordColor.DarkButNotBlack,
-                    };*/
+                    };
 
-
-                    /*await args.Interaction.CreateResponseAsync(
-                        InteractionResponseType.ChannelMessageWithSource,
-                        new DiscordInteractionResponseBuilder()
-                            .WithContent("Ты нажал на кнопку!")
-                            .AsEphemeral(true)
-                            .AddComponents(dropdown_items)
-                    );*/
 
                     await args.Interaction.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource,
                         new DiscordInteractionResponseBuilder()
                         .WithContent("123")
+                        .AddEmbed(message)
                         .AddComponents(dropdown_items)
                         .AsEphemeral(true));
 

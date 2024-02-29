@@ -196,7 +196,11 @@ namespace TSDB
                             item.name,
                             item.id,
                             item.description));
+
+                        Console.WriteLine($"{item.name} {item.id} {item.description}");
                     }
+
+                    
                     
                     var dropdown_items = new DiscordSelectComponent("items", null, options, false, 1, 1);
                     /*var message = new DiscordEmbedBuilder

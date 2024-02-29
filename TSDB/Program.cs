@@ -172,8 +172,25 @@ namespace TSDB
                     case "items":
                         await args.Interaction.CreateResponseAsync(
                             InteractionResponseType.ChannelMessageWithSource,
-                            new DiscordInteractionResponseBuilder().WithContent("Товар выбран!")
+                            new DiscordInteractionResponseBuilder().WithContent("Товар выбран!").AsEphemeral(true)
                         );
+                        await Task.Delay(1000);
+                        await args.Interaction.DeleteOriginalResponseAsync();
+                        break;
+                    case "payments":
+                        await args.Interaction.CreateResponseAsync(
+                            InteractionResponseType.ChannelMessageWithSource,
+                            new DiscordInteractionResponseBuilder().WithContent("Метод оплаты выбран!").AsEphemeral(true)
+                        );
+                        await Task.Delay(1000);
+                        await args.Interaction.DeleteOriginalResponseAsync();
+                        break;
+                    case "joins":
+                        await args.Interaction.CreateResponseAsync(
+                            InteractionResponseType.ChannelMessageWithSource,
+                            new DiscordInteractionResponseBuilder().WithContent("Способ входа выбран!").AsEphemeral(true)
+                        );
+                        await Task.Delay(1000);
                         await args.Interaction.DeleteOriginalResponseAsync();
                         break;
                 }

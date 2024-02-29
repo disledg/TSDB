@@ -14,6 +14,7 @@ using TSDB.Commands;
 using TSDB.Commands.Slash;
 using System.Security.Cryptography;
 using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 
 namespace TSDB
 {
@@ -121,7 +122,7 @@ namespace TSDB
                     new DiscordButtonComponent(ButtonStyle.Danger, "closeButtonTicket", "Закрыть"),
                     new DiscordButtonComponent(ButtonStyle.Danger, "closeWithReasonButtonTicket", "Закрыть с причиной"),
                     new DiscordButtonComponent(ButtonStyle.Success, "openButtonTicket", "Назначить"),
-            });
+                });
 
 
                 var loginMethodEmbed = new DiscordEmbedBuilder()
@@ -151,7 +152,7 @@ namespace TSDB
                     case "items":
                         await args.Interaction.CreateResponseAsync(
                             InteractionResponseType.ChannelMessageWithSource,
-                            new DiscordInteractionResponseBuilder().WithContent("Товар выбран!").AsEphemeral(true)
+                            new DiscordInteractionResponseBuilder().WithContent("Продукт выбран!").AsEphemeral(true)
                         );
                         await Task.Delay(1000);
                         await args.Interaction.DeleteOriginalResponseAsync();
@@ -183,10 +184,92 @@ namespace TSDB
                             InteractionResponseType.UpdateMessage,
                             new DiscordInteractionResponseBuilder().WithContent("Удачи!")
                         );
+                        await Task.Delay(1000);
                         await args.Interaction.DeleteOriginalResponseAsync();
                         break;
+                    case "ticket_create":
+                        bool full = true;
+                        foreach (var component in args.Interaction.Data.Components)
+                        {
+                            if (component.CustomId == "items" || component.CustomId == "payments" || component.CustomId == "joins")
+                            {
+                                if (component.ToString() == null)
+                                {
+                                    full = false; break;
+                                }
+                            }
+                        }
+                        if (full)
+                        {
+                            var channel = await args.Interaction.Guild.CreateChannelAsync($"Тикет {args.Interaction.User.Username}'a", ChannelType.Text, args.Interaction.Channel.Parent);
 
+                            var random = new Random();
 
+                            var TicketEngine = new TicketEngine();
+
+                            int minvalue = 10000;
+                            int maxvalue = 99999;
+
+                            int randomNumber = random.Next(minvalue, maxvalue);
+                            string before_hash = args.Interaction.User.Username + args.Interaction.User.AvatarHash + randomNumber.ToString();
+
+                            MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
+                            byte[] bytes = Encoding.UTF8.GetBytes(before_hash);
+                            byte[] hash = md5.ComputeHash(bytes);
+                            string ticket_id = Convert.ToBase64String(hash);
+
+                            string item = "";
+                            string payment = "";
+                            string join = "";
+                            foreach (var component in args.Interaction.Data.Components)
+                            {
+                                if (component.CustomId == "items")
+                                {
+                                    item = component.ToString();
+                                }
+                                else if (component.CustomId == "payments")
+                                {
+                                    payment = component.ToString();
+                                }
+                                else if (component.CustomId == "joins")
+                                {
+                                    join = component.ToString();
+                                }
+                            }
+
+                            var ticket1 = new Ticket()
+                            {
+                                username = args.Interaction.User.Username,
+                                productName = item,
+                                payMethod = payment,
+                                loginMethod = join,
+                                ticketNum = 0,
+                                ticketId = ticket_id
+                            };
+
+                            TicketEngine.StoreTicket(ticket1);
+
+                            var productEmbed = new DiscordEmbedBuilder()
+                            {
+                                Color = DiscordColor.DarkButNotBlack,
+                                Title = $"Тикет {args.Interaction.User.Username}'а"
+                            };
+                            productEmbed.AddField("Продукт", ticket1.productName, true);
+                            productEmbed.AddField("Оплата", ticket1.payMethod, true);
+                            productEmbed.AddField("Вход", ticket1.loginMethod, true);
+                            productEmbed.AddField("ID тикета", ticket1.ticketId, true);
+
+                            var productMessage = new DiscordMessageBuilder();
+                            productMessage.AddComponents(new DiscordComponent[]
+                            {
+                                new DiscordButtonComponent(ButtonStyle.Danger, "closeButtonTicket", "Закрыть"),
+                                new DiscordButtonComponent(ButtonStyle.Danger, "closeWithReasonButtonTicket", "Закрыть с причиной"),
+                                new DiscordButtonComponent(ButtonStyle.Success, "openButtonTicket", "Назначить"),
+                            });
+
+                            await channel.SendMessageAsync(embed: productEmbed);
+                        }
+                        break;
                 }
             }
             switch (args.Interaction.Data.CustomId)
@@ -213,7 +296,7 @@ namespace TSDB
                                 isDefault: false,
                                 emoji: new DiscordComponentEmoji(item.emoji)));
                     }
-                    var dropdown_items = new DiscordSelectComponent("items", "Товар", options_items, false, 1, 1);
+                    var dropdown_items = new DiscordSelectComponent("items", "Продукт", options_items, false, 1, 1);
 
                     var options_payments = new List<DiscordSelectComponentOption>();
                     foreach (var payment in JsonReader.payments)

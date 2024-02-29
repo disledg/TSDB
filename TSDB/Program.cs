@@ -227,7 +227,8 @@ namespace TSDB
 
                     await args.Interaction.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource,
                         new DiscordInteractionResponseBuilder()
-                        .WithContent("123"));
+                        .WithContent("123")
+                        .AsEphemeral(true));
 
                     break;
                 

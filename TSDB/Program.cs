@@ -179,8 +179,16 @@ namespace TSDB
                 switch (args.Interaction.Data.CustomId)
                 {
                     case "ticket_cancel":
+                        // Обновляем ephemeral сообщение
+                        await args.Interaction.CreateResponseAsync(
+                            InteractionResponseType.UpdateMessage,
+                            new DiscordInteractionResponseBuilder().WithContent("Сообщение будет удалено")
+                        );
+                        // Удаляем сообщение через 5 секунд
+                        await Task.Delay(5000);
                         await args.Interaction.DeleteOriginalResponseAsync();
                         break;
+
 
                 }
             }

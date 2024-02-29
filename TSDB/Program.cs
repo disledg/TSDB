@@ -144,9 +144,9 @@ namespace TSDB
 
         private static async Task Client_ComponentInteractionCreated(DiscordClient sender, ComponentInteractionCreateEventArgs args)
         {
-            if (args.Id == "dropdown" && args.Interaction.Data.ComponentType == ComponentType.StringSelect)
+            if (args.Interaction.Data.ComponentType == ComponentType.StringSelect)
             {
-                var options = args.Values;
+                /*var options = args.Values;
                 foreach (var option in options)
                 {
                     switch (option)
@@ -166,6 +166,12 @@ namespace TSDB
                             break;
                         
                     }
+                }*/
+                switch (args.Id)
+                {
+                    case "items":
+                        await args.Interaction.DeferAsync(ephemeral: true);
+                        break;
                 }
             }
             switch (args.Interaction.Data.CustomId)
@@ -232,9 +238,6 @@ namespace TSDB
                         .AsEphemeral(true));
 
                     break;
-                
-
-
             }
         }
 

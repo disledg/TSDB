@@ -170,7 +170,11 @@ namespace TSDB
                 switch (args.Id)
                 {
                     case "items":
-                        await args.Interaction.DeferAsync(ephemeral: true);
+                        await args.Interaction.CreateResponseAsync(
+                            InteractionResponseType.ChannelMessageWithSource,
+                            new DiscordInteractionResponseBuilder().WithContent("Товар выбран!")
+                        );
+                        await args.Interaction.DeleteOriginalResponseAsync();
                         break;
                 }
             }
